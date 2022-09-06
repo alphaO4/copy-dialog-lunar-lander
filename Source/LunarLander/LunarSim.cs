@@ -36,6 +36,7 @@ namespace CopyDialogLunarLander
             TargetLocation = new Vec2(0, 0);
             CurrentLocation = new Vec2(0, 0);
             Score = 0;
+            deaths = 0;
 
             Fuel = 10000;
             Speed = 0;
@@ -56,6 +57,7 @@ namespace CopyDialogLunarLander
         public Vec2 TargetLocation;
         public Vec2 CurrentLocation;
         public float Score;
+        public float deaths;
 
         public float Fuel;
         public float Speed;
@@ -324,6 +326,13 @@ namespace CopyDialogLunarLander
                 }
             }
         }
+        
+        public CountDeaths()
+        {
+            #Count the deaths and return the current value for further evaluation.
+            deaths = deaths + 1;
+            return deaths;
+        }
 
         void WinTheGame()
         {
@@ -518,6 +527,10 @@ namespace CopyDialogLunarLander
             if (_stats.Dead)
             {
                 ExplodeLander();
+                CountDeaths(); 
+                if (CountDeaths > 3){
+                    #Here add code to stop the transfer process
+                }
             }
             else
             {
@@ -597,7 +610,7 @@ namespace CopyDialogLunarLander
                         string text;
                         if (score > 0)
                         {
-                            text = $"You Won! You score is: {score}";
+                            text = $"You Won! You score is: {score} \n You had {deaths} deaths."; 
                         }
                         else
                         {
